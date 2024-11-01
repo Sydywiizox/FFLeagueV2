@@ -18,12 +18,15 @@
             onload="this.rel='stylesheet'"
         />
         <script src="script/script.js" defer></script>
+        <script src="script/twitch.js" defer></script>
     </head>
     <body>
         <header class="header">
             <nav class="header-nav">
                 <ul class="header-nav-side">
-                    <a href=""><li class="header-nav-item active">Accueil</li></a>
+                    <a href=""
+                        ><li class="header-nav-item active">Accueil</li></a
+                    >
                     <a href=""><li class="header-nav-item">Le Projet</li></a>
                     <a href=""><li class="header-nav-item">Les Jeux</li></a>
                 </ul>
@@ -41,16 +44,33 @@
         </header>
         <main class="main">
             <div class="bandeau bandeau-match">
-                <div class="contenu">
-                </div>
+                <div class="contenu"></div>
             </div>
-            <section class="projet">
-
-            </section>
+            <section class="projet"></section>
             <div class="bandeau bandeau-classement">
-                <div class="contenu">
-                </div>
+                <div class="contenu"></div>
             </div>
+            <section class="twitch">
+                <div class="twitch-content">
+                    <div class="toggle-chat">
+                        <label>Chat :</label>
+                        <div class="toggle">
+                            <input
+                                type="checkbox"
+                                id="mode-toggle"
+                                class="toggle__input"
+                            />
+                            <label
+                                for="mode-toggle"
+                                class="toggle__label"
+                            ></label>
+                        </div>
+                    </div>
+                    <div class="twitch-container">
+                        <div id="twitch-embed"></div>
+                    </div>
+                </div>
+            </section>
             <div class="tooltips"></div>
         </main>
         <footer class="footer"></footer>

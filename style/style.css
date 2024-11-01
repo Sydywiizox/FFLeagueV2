@@ -190,6 +190,82 @@ body {
     height: min(600px,calc(600/1920*100*1vw));
 }
 
+/* Twitch */
+
+.twitch {
+    margin-bottom: min(200px,calc(200/1920*100*1vw));
+}
+
+#twitch-embed {
+    overflow: hidden;
+}
+
+#twitch-embed iframe {
+    display: block;
+    width: calc(53.33vw + 340px);
+    height: 30vw;
+    overflow: hidden;
+    justify-content: center;
+}
+
+.twitch-container {
+    display: flex;
+    justify-content: center;
+}
+
+.twitch-content {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+/****************************************/
+.toggle-chat {
+    display: flex;
+    width: 130px;
+    justify-content: space-between;
+    align-items: center;
+    color: #fff;
+    margin: 10px;
+}
+
+.toggle {
+    position: relative;
+    display: inline-block;
+    border-radius: 25px;
+}
+
+.toggle__input {
+    display: none;
+}
+
+.toggle__label {
+    display: block;
+    width: 60px;
+    height: 30px;
+    background-color: var(--pink);
+    border-radius: 99px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.toggle__input:checked + .toggle__label::after {
+    left: 32px;
+}
+
+.toggle__label::after {
+    content: "";
+    position: absolute;
+    top: 2px;
+    left: 2px;
+    width: 26px;
+    height: 26px;
+    background-color: var(--blue);
+    border-radius: 50%;
+    transition: left 0.3s ease;
+}
+
 /* Custom */
 
 .custom-tooltip {
