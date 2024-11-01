@@ -1,32 +1,26 @@
-function checkLocalImageExists(path, callback) {
-    const img = new Image();
-
-    img.onload = () => callback(true); // L'image existe
-    img.onerror = () => callback(false); // L'image n'existe pas
-
-    img.src = path;
-}
 let tool = 0
 const teams = [
-    { name: "CSC"},
-    { name: "DBA" },
-    { name: "WQT" },
-    { name: "LC" },
-    { name: "CBD" },
-    { name: "AVS" },
+    { name: "CSC", fullname: "Clébards sous Chenil", },
+    { name: "DBA", fullname: "DBAFR", },
+    { name: "WQT", fullname: "WQT", },
+    { name: "LC", fullname: "Le Cercle", },
+    { name: "CBD", fullname: "Caleçons bien dégeux", },
+    { name: "AVS", fullname: "Avengers", },
 ];
+teams.forEach((team) => {
+    team.imageUrl = `image/teams/${team.name}.png`; // Attribue un id unique en partant de 0
+})
+
 
 // Créer une liste avec les liens d'image associés
-const teamsWithImages = teams.map((team) => ({
-    name: team.name,
-    imageUrl: `image/teams/${team.name}.png`, // Lien d'image basé sur le nom de l'équipe
-}));
+const teamsWithImages = [...teams]
 
 // Afficher la liste des équipes avec leurs liens d'image
 
 function getImageByTeamName(teamName) {
     let url = teamsWithImages.find((t) => t.name === teamName);
     if (url) url = url.imageUrl;
+    else url = ""
     console.log(teamName + " " + url);
 
     // Utilise onerror pour insérer du texte alternatif en cas d'erreur de chargement
