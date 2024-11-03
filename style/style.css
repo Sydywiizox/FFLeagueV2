@@ -90,7 +90,6 @@ body {
 .bandeau .contenu {
     display: flex;
     height: 100%;
-    
     filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
 }
 
@@ -220,7 +219,6 @@ body {
     flex-direction: column;
 }
 
-/****************************************/
 .toggle-chat {
     display: flex;
     width: 130px;
