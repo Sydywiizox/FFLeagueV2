@@ -48,13 +48,18 @@ document.addEventListener("DOMContentLoaded", () => {
     // Create a Twitch.Embed object that will render within the "twitch-embed" element
     // Initialiser le widget Twitch une fois le script chargé
     script.onload = () => {
-        new Twitch.Embed("twitch-embed", {
-            width: 1080,
-            height: 720,
-            layout: "chat",
-            channel: "ffleaguettv",
-            muted: false,
-            parent: ["embed.example.com", "othersite.example.com"],
-        });
+        try {
+            new Twitch.Embed("twitch-embed", {
+                width: 1080,
+                height: 720,
+                layout: "chat",
+                channel: "ffleaguettv",
+                muted: false,
+                parent: ["127.0.0.1"/*, "sydywiizox.github.io/FFLeagueV2"*/],
+            });
+        } catch (error) {
+            console.error("Erreur lors de l'initialisation de l'embed Twitch :", error);
+        }
     };
+    
 });

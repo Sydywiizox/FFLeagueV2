@@ -20,7 +20,6 @@ function getImageByTeamName(teamName) {
     let url = teamsWithImages.find((t) => t.name === teamName);
     if (url) url = url.imageUrl;
     else url = "";
-    console.log(teamName + " " + url);
 
     // Utilise onerror pour insérer du texte alternatif en cas d'erreur de chargement
     return `
@@ -63,50 +62,48 @@ if (document.title == "FFLeague") {
 
     async function fetchMatchsFromGoogleSheets() {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${rangeM}?key=${apiKey}`;
-
+    
         try {
             const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
             const data = await response.json();
-
-            // Vérifie que les données sont présentes
+    
             if (data.values) {
                 events = data.values.map((row) => {
                     return {
                         equipe1: row[0],
                         equipe2: row[1],
-                        start: convertToISODate(row[2]), // Colonne B : Date de début
-                        //end: convertToISODate(row[3]), // Colonne C : Date de fin (optionnelle)
+                        start: convertToISODate(row[2]), 
                         score1: row[3],
                         score2: row[4],
                     };
                 });
-                /* Enleve la ligne avec les titres des colonnes "Equipe 1 ..." */
-                events.shift();
+                events.shift(); // Remove header row
                 const filteredEvents = events.filter(
-                    (event) =>
-                        event.equipe1 !== undefined &&
-                        event.equipe1 !== "undefined"
+                    (event) => event.equipe1 !== undefined && event.equipe1 !== "undefined"
                 );
-                displayUpcomingEvents(filteredEvents);
+                displayBanner1(filteredEvents);
             } else {
-                console.error("Aucun événement trouvé.");
+                throw new Error("No events found.");
             }
         } catch (error) {
-            console.error(
-                "Erreur lors de la récupération des données : ",
-                error
-            );
+            console.error("Error fetching matches:", error);
+            displayErrorMessage("Unable to fetch match events. Please try again later.");
         }
     }
 
     async function fetchClassementFromGoogleSheets() {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${rangeC}?key=${apiKey}`;
-
+    
         try {
             const response = await fetch(url);
+            if (!response.ok) {
+                throw new Error(`Network response was not ok: ${response.statusText}`);
+            }
             const data = await response.json();
-
-            // Vérifie que les données sont présentes
+    
             if (data.values) {
                 classements = data.values.map((row) => {
                     return {
@@ -115,24 +112,26 @@ if (document.title == "FFLeague") {
                         lose: row[2],
                     };
                 });
-                /* Enleve la ligne avec les titres des colonnes "Equipe 1 ..." */
-                classements.shift();
+                classements.shift(); // Remove header row
                 const filteredClassements = classements.filter(
-                    (classement) =>
-                        classement.name !== undefined &&
-                        classement.name !== "undefined"
+                    (classement) => classement.name !== undefined && classement.name !== "undefined"
                 );
-
-                displayClassements(filteredClassements);
+                displayBanner2(filteredClassements);
             } else {
-                console.error("Aucun événement trouvé.");
+                throw new Error("No standings found.");
             }
         } catch (error) {
-            console.error(
-                "Erreur lors de la récupération des données : ",
-                error
-            );
+            console.error("Error fetching standings:", error);
+            displayErrorMessage("Unable to fetch team standings. Please try again later.");
         }
+    }
+    
+    function displayErrorMessage(message) {
+        const errorDiv = document.createElement("div");
+        errorDiv.className = "error-message";
+        errorDiv.textContent = message;
+        document.querySelector(".bandeau-match .contenu").appendChild(errorDiv);
+        // Optionally, add styles to make the error message noticeable
     }
 
     function formatDate(dateString, showTime = true) {
@@ -149,8 +148,8 @@ if (document.title == "FFLeague") {
         return `le ${day}/${month}`;
     }
     // Fonction pour afficher les événements à venir
-    function displayUpcomingEvents(events) {
-        const upcomingEventsDiv = document.querySelector(
+    function displayBanner1(events) {
+        const banner1Div = document.querySelector(
             ".bandeau-match .contenu"
         );
         const now = new Date();
@@ -175,15 +174,13 @@ if (document.title == "FFLeague") {
                 // Vérifie si l'événement est à venir
                 const eventItem = document.createElement("div");
                 eventItem.className = "match";
-                console.log(getImageByTeamName(event.equipe1));
-                console.log(getImageByTeamName(event.equipe2));
                 eventItem.innerHTML = `
                         <div class="match-title">${getImageByTeamName(
                             event.equipe1
                         )} vs ${getImageByTeamName(event.equipe2)}</div>
                         <p class="date">${formatDate(event.start)}</p>
                     `;
-                upcomingEventsDiv.appendChild(eventItem);
+                banner1Div.appendChild(eventItem);
                 eventCount++;
             }
         });
@@ -212,7 +209,7 @@ if (document.title == "FFLeague") {
                 } ${getImageByTeamName(previousEvent.equipe2)}</div>
                     <p class="date">${formatDate(previousEvent.start)}</p>
                 `;
-                upcomingEventsDiv.prepend(eventItem);
+                banner1Div.prepend(eventItem);
                 eventCount++;
             }
         });
@@ -263,8 +260,8 @@ if (document.title == "FFLeague") {
         return 0;
     }
     // Fonction pour afficher les événements à venir
-    function displayClassements(classement) {
-        const classementDiv = document.querySelector(
+    function displayBanner2(classement) {
+        const banner2Div = document.querySelector(
             ".bandeau-classement .contenu"
         );
 
@@ -273,7 +270,6 @@ if (document.title == "FFLeague") {
 
         classement.forEach((equipe, index) => {
             if (equipe.name !== undefined) {
-                console.log([equipe.name, index + 1]);
                 // Vérifie si l'événement est à venir
                 const teamItem = document.createElement("div");
                 teamItem.className = "classement";
@@ -281,7 +277,7 @@ if (document.title == "FFLeague") {
                     ${getImageByTeamName(equipe.name)}
                     <p>${equipe.win}W - ${equipe.lose}L</p>
                 `;
-                classementDiv.append(teamItem);
+                banner2Div.append(teamItem);
             }
         });
         const classementDuplicator = document.querySelector(
@@ -295,7 +291,6 @@ if (document.title == "FFLeague") {
         tooltip();
     }
     function tooltip() {
-        console.log(document.querySelectorAll("img[title]"));
         // Sélectionnez toutes les images ayant un attribut title
         document.querySelectorAll("img[title]").forEach((img) => {
             const tooltipText = img.getAttribute("title");
@@ -321,7 +316,6 @@ if (document.title == "FFLeague") {
                 tooltip.style.display = "none";
             });
         });
-        console.log(++tool);
     }
     document.addEventListener("DOMContentLoaded", function () {
         // Charge les événements depuis Google Sheets
