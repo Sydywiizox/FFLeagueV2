@@ -1,26 +1,40 @@
-let tool = 0
+let tool = 0;
 const teams = [
-    { name: "CSC", fullname: "Clébards sous Chenil", },
-    { name: "DBA", fullname: "DBAFR", },
-    { name: "WQT", fullname: "WQT", },
-    { name: "LC", fullname: "Le Cercle", },
-    { name: "CBD", fullname: "Caleçons bien dégeux", },
-    { name: "AVS", fullname: "Avengers", },
+    { name: "CSC", fullname: "Clébards sous Chenil" },
+    { name: "DBA", fullname: "DBAFR" },
+    { name: "WQT", fullname: "WQT" },
+    { name: "LC", fullname: "Le Cercle" },
+    { name: "CBD", fullname: "Caleçons bien dégeux" },
+    { name: "AVS", fullname: "Avengers" },
 ];
 teams.forEach((team) => {
     team.imageUrl = `image/teams/${team.name}.png`; // Attribue un id unique en partant de 0
-})
+});
+
+function createMatchElement(team1, team2, date, score1 = null, score2 = null) {
+    const matchElement = document.createElement("div");
+    matchElement.className = "match";
+
+    let scoreText = score1 !== null && score2 !== null ? `${score1} - ${score2}` : "";
+    let dateText = date ? formatDate(date) : "";
+
+    matchElement.innerHTML = `
+        <div class="match-title">${getImageByTeamName(team1)} vs ${getImageByTeamName(team2)} ${scoreText}</div>
+        <p class="date">${dateText}</p>
+    `;
+    return matchElement;
+}
 
 
 // Créer une liste avec les liens d'image associés
-const teamsWithImages = [...teams]
+const teamsWithImages = [...teams];
 
 // Afficher la liste des équipes avec leurs liens d'image
 
 function getImageByTeamName(teamName) {
     let url = teamsWithImages.find((t) => t.name === teamName);
     if (url) url = url.imageUrl;
-    else url = ""
+    else url = "";
     console.log(teamName + " " + url);
 
     // Utilise onerror pour insérer du texte alternatif en cas d'erreur de chargement
@@ -60,7 +74,7 @@ if (document.title == "FFLeague") {
     const spreadsheetId = "1aQZEERrhJncbTi-Bf1wECooC-lcDazOFjsVzrk4CM6o";
     const apiKey = "AIzaSyA1_4ehGjim1ZPe3YGyriozS9TN3mOzZTY";
     const rangeM = "Matchs!A1:F30";
-    const rangeC = "Classement!A1:F30";// Nom de l'onglet et plage de données (A2 à C pour ignorer la première ligne)
+    const rangeC = "Classement!A1:F30"; // Nom de l'onglet et plage de données (A2 à C pour ignorer la première ligne)
 
     async function fetchMatchsFromGoogleSheets() {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${rangeM}?key=${apiKey}`;
@@ -136,22 +150,17 @@ if (document.title == "FFLeague") {
         }
     }
 
-    function formatDate(dateString) {
+    function formatDate(dateString, showTime = true) {
         const date = new Date(dateString);
         const day = String(date.getDate()).padStart(2, "0");
-        const month = String(date.getMonth() + 1).padStart(2, "0"); // Janvier est 0
-        const year = date.getFullYear();
-        const hours = String(date.getHours()).padStart(2, "0");
-        const minutes = String(date.getMinutes()).padStart(2, "0");
-        return `le ${day}/${month} à ${hours}:${minutes}`;
-    }
-    function formatDate2(dateString) {
-        const date = new Date(dateString);
-        const day = String(date.getDate()).padStart(2, "0");
-        const month = String(date.getMonth() + 1).padStart(2, "0"); // Janvier est 0
-        const year = date.getFullYear();
-        const hours = String(date.getHours()).padStart(2, "0");
-        const minutes = String(date.getMinutes()).padStart(2, "0");
+        const month = String(date.getMonth() + 1).padStart(2, "0");
+        //const year = date.getFullYear();
+    
+        if (showTime) {
+            const hours = String(date.getHours()).padStart(2, "0");
+            const minutes = String(date.getMinutes()).padStart(2, "0");
+            return `le ${day}/${month} à ${hours}:${minutes}`;
+        }
         return `le ${day}/${month}`;
     }
     // Fonction pour afficher les événements à venir
@@ -181,10 +190,12 @@ if (document.title == "FFLeague") {
                 // Vérifie si l'événement est à venir
                 const eventItem = document.createElement("div");
                 eventItem.className = "match";
-                console.log(getImageByTeamName(event.equipe1))
-                console.log(getImageByTeamName(event.equipe2))
+                console.log(getImageByTeamName(event.equipe1));
+                console.log(getImageByTeamName(event.equipe2));
                 eventItem.innerHTML = `
-                        <div class="match-title">${getImageByTeamName(event.equipe1)} vs ${getImageByTeamName(event.equipe2)}</div>
+                        <div class="match-title">${getImageByTeamName(
+                            event.equipe1
+                        )} vs ${getImageByTeamName(event.equipe2)}</div>
                         <p class="date">${formatDate(event.start)}</p>
                     `;
                 upcomingEventsDiv.appendChild(eventItem);
@@ -256,7 +267,15 @@ if (document.title == "FFLeague") {
         document.querySelectorAll(".bandeau-match .match").forEach((e) => {
             upcomingEvents.append(e.cloneNode(true));
         });
-        tooltip()
+        tooltip();
+    }
+
+    function compareClassement(b, a) {
+        if (a.win > b.win) return 1;
+        if (a.win < b.win) return -1;
+        if (a.win == b.win && a.lose < b.lose) return 1;
+        if (a.win == b.win && a.lose > b.lose) return -1;
+        return 0;
     }
     // Fonction pour afficher les événements à venir
     function displayClassements(classement) {
@@ -264,28 +283,12 @@ if (document.title == "FFLeague") {
             ".bandeau-classement .contenu"
         );
 
-        function compareClassement(b, a) {
-            if (a.win > b.win)
-               return 1;
-            if (a.win < b.win)
-                return -1;
-            if (a.win == b.win && a.lose < b.lose)
-               return 1;
-            if (a.win == b.win && a.lose > b.lose)
-                return -1;
-            if (a.win == b.win && a.lose == b.lose)
-                return 0;
-            // a doit être égal à b
-            return 0;
-          }
-          
         // Trier les événements par date de début
-        classement.sort((compareClassement));
+        classement.sort(compareClassement);
 
         classement.forEach((equipe, index) => {
-            
             if (equipe.name !== undefined) {
-                console.log([equipe.name, index + 1])
+                console.log([equipe.name, index + 1]);
                 // Vérifie si l'événement est à venir
                 const teamItem = document.createElement("div");
                 teamItem.className = "classement";
@@ -299,13 +302,15 @@ if (document.title == "FFLeague") {
         const classementDuplicator = document.querySelector(
             ".bandeau-classement .contenu"
         );
-        document.querySelectorAll(".bandeau-classement .classement").forEach((e) => {
-            classementDuplicator.append(e.cloneNode(true));
-        });
-        tooltip()
+        document
+            .querySelectorAll(".bandeau-classement .classement")
+            .forEach((e) => {
+                classementDuplicator.append(e.cloneNode(true));
+            });
+        tooltip();
     }
     function tooltip() {
-        console.log(document.querySelectorAll("img[title]"))
+        console.log(document.querySelectorAll("img[title]"));
         // Sélectionnez toutes les images ayant un attribut title
         document.querySelectorAll("img[title]").forEach((img) => {
             const tooltipText = img.getAttribute("title");
@@ -331,7 +336,7 @@ if (document.title == "FFLeague") {
                 tooltip.style.display = "none";
             });
         });
-        console.log(++tool)
+        console.log(++tool);
     }
     document.addEventListener("DOMContentLoaded", function () {
         // Charge les événements depuis Google Sheets
