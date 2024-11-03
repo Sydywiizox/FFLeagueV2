@@ -55,10 +55,10 @@ if (document.title == "FFLeague") {
     }
 
     // Remplace "SPREADSHEET_ID" par l'ID de ta feuille Google Sheets et "API_KEY" par ta clé API
-    const spreadsheetId = "1aQZEERrhJncbTi-Bf1wECooC-lcDazOFjsVzrk4CM6o";
+    const spreadsheetId = "1ZBlOQERxzf-v6ieDRfQPeaw1VqsjWE45r6uzBFUP1dw";
     const apiKey = "AIzaSyA1_4ehGjim1ZPe3YGyriozS9TN3mOzZTY";
-    const rangeM = "Matchs!A1:F30";
-    const rangeC = "Classement!A1:F30"; // Nom de l'onglet et plage de données (A2 à C pour ignorer la première ligne)
+    const rangeM = "TEST!A1:E30";
+    const rangeC = "TEST!I1:K30"; // Nom de l'onglet et plage de données (A2 à C pour ignorer la première ligne)
 
     async function fetchMatchsFromGoogleSheets() {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${rangeM}?key=${apiKey}`;
@@ -96,7 +96,6 @@ if (document.title == "FFLeague") {
 
     async function fetchClassementFromGoogleSheets() {
         const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/${rangeC}?key=${apiKey}`;
-    
         try {
             const response = await fetch(url);
             if (!response.ok) {
@@ -153,7 +152,7 @@ if (document.title == "FFLeague") {
             ".bandeau-match .contenu"
         );
         const now = new Date();
-        const nbEvents = 9;
+        const nbEvents = 6;
         const nbResult = 3;
         let eventCount = 0;
         let firstEventIndex = -1;
@@ -163,11 +162,17 @@ if (document.title == "FFLeague") {
         events.forEach((event, index) => {
             event.id = index; // Attribue un id unique en partant de 0
         });
+        //console.log(events)
         // AJOUTE LES EVENTS A VENIR
-        events.forEach((event) => {
+        events.forEach((event, index) => {
             const eventStart = new Date(event.start);
+            //console.log([index,formatDate(eventStart), formatDate(now), eventCount, nbEvents])
+            //console.log(eventStart >= now)
+            //console.log(eventCount < nbEvents)
+            //console.log(eventStart >= now && eventCount < nbEvents)
             if (eventStart >= now && eventCount < nbEvents) {
                 // Enregistre l'index du premier événement ajouté
+                //console.log("first " + firstEventIndex)
                 if (firstEventIndex === -1) {
                     firstEventIndex = event.id;
                 }
@@ -184,7 +189,8 @@ if (document.title == "FFLeague") {
                 eventCount++;
             }
         });
-
+        //console.log(banner1Div.textContent)
+        
         // AJOUTE LES RESULTATS
         // Vérifier s'il y a au moins 3 événements avant celui-ci
         let verifSupp = firstEventIndex >= nbResult;
@@ -196,8 +202,10 @@ if (document.title == "FFLeague") {
         //On inverse l'ordre des résultats
         previousEvents.sort((b, a) => new Date(a.start) - new Date(b.start));
         //console.log(previousEvents)
+        //console.log(previousEvents)
         previousEvents.forEach((previousEvent) => {
-            if (previousEvent.score1 !== undefined) {
+            //console.log(previousEvent.score1)
+            if (previousEvent.equipe1 !== undefined && previousEvent.equipe1 !== "" && previousEvent.score1 !== undefined && previousEvent.score1 !== "") {
                 // Vérifie si l'événement est à venir
                 const eventItem = document.createElement("div");
                 eventItem.className = "match";
@@ -213,12 +221,10 @@ if (document.title == "FFLeague") {
                 eventCount++;
             }
         });
-        const upcomingEvents = document.querySelector(
-            ".bandeau-match .contenu"
-        );
-        upcomingEvents.style.setProperty("--nb-match-given", `${eventCount}`);
-        if (upcomingEvents.innerHTML.trim() === "") {
-            upcomingEvents.innerHTML = `
+        
+        banner1Div.style.setProperty("--nb-match-given", `${eventCount}`);
+        if (banner1Div.innerHTML.trim() === "") {
+            banner1Div.innerHTML = `
             <div class="match">
                 <h2 class="match-title">Pas de match à venir</h2>
             </div>
@@ -226,28 +232,30 @@ if (document.title == "FFLeague") {
                 <h2 class="match-title">Pas de match à venir</h2>
             </div>
             `;
-            upcomingEvents.style.setProperty("--nb-match-given", `2`);
-            upcomingEvents.style.setProperty("--nb-match-display", `2`);
+            banner1Div.style.setProperty("--nb-match-given", `2`);
+            banner1Div.style.setProperty("--nb-match-display", `2`);
         }
         let nbMatchGiven =
-            getComputedStyle(upcomingEvents).getPropertyValue(
+            getComputedStyle(banner1Div).getPropertyValue(
                 "--nb-match-given"
             );
         nbMatchGiven = parseInt(nbMatchGiven.trim(), 10);
         let nbMatchDisplay =
-            getComputedStyle(upcomingEvents).getPropertyValue(
+            getComputedStyle(banner1Div).getPropertyValue(
                 "--nb-match-display"
             );
+            console.log(nbMatchDisplay)
         nbMatchDisplay = parseInt(nbMatchDisplay.trim(), 10);
         if (nbMatchGiven < nbMatchDisplay) {
-            upcomingEvents.style.setProperty(
+            banner1Div.style.setProperty(
                 "--nb-match-display",
                 `${nbMatchGiven}`
             );
         }
-
+        console.log(nbMatchDisplay)
+        if(nbMatchGiven >= 6) banner1Div.style.setProperty("--anime-banner-1", `${nbMatchGiven*(20/6)}s`);
         document.querySelectorAll(".bandeau-match .match").forEach((e) => {
-            upcomingEvents.append(e.cloneNode(true));
+            banner1Div.append(e.cloneNode(true));
         });
         tooltip();
     }
@@ -265,11 +273,11 @@ if (document.title == "FFLeague") {
             ".bandeau-classement .contenu"
         );
 
-        // Trier les événements par date de début
+        classement = classement.filter((classement) => classement.name !="" )
         classement.sort(compareClassement);
 
         classement.forEach((equipe, index) => {
-            if (equipe.name !== undefined) {
+            if (equipe.name !== undefined && equipe.name !== "") {
                 // Vérifie si l'événement est à venir
                 const teamItem = document.createElement("div");
                 teamItem.className = "classement";

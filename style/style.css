@@ -115,7 +115,8 @@ body {
 .bandeau-match .contenu {
     --nb-match-display: 6; /* Nombre match à afficher */
     --nb-match-given: 6; /* Nombre match récupéré */
-    animation: defilement 30s linear infinite;
+    --anime-banner-1 : 20s;
+    animation: defilement var(--anime-banner-1) linear infinite;
     width: calc(100% * var(--nb-match-given) / (var(--nb-match-display) / 2));
 }
 
@@ -156,8 +157,9 @@ body {
 .bandeau-classement .contenu {
     --nb-class-display: 6; /* Nombre match à afficher */
     --nb-class-given: 6; /* Nombre match récupéré */
+    --anime-banner-2 : 20s;
     width: calc(100% * var(--nb-class-given) / (var(--nb-class-display) / 2));
-    animation: defilement 20s linear infinite;
+    animation: defilement var(--anime-banner-2) linear infinite;
 }
 
 .classement {
@@ -222,10 +224,15 @@ body {
 .toggle-chat {
     display: flex;
     width: 130px;
-    justify-content: space-between;
+    justify-content: center;
+    gap: 10px;
     align-items: center;
     color: #fff;
     margin: 10px;
+}
+
+.toggle-chat>label {
+    font-size: min(15px,calc(15/1920*100*1vw));
 }
 
 .toggle {
