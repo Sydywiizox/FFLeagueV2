@@ -11,21 +11,6 @@ teams.forEach((team) => {
     team.imageUrl = `image/teams/${team.name}.png`; // Attribue un id unique en partant de 0
 });
 
-function createMatchElement(team1, team2, date, score1 = null, score2 = null) {
-    const matchElement = document.createElement("div");
-    matchElement.className = "match";
-
-    let scoreText = score1 !== null && score2 !== null ? `${score1} - ${score2}` : "";
-    let dateText = date ? formatDate(date) : "";
-
-    matchElement.innerHTML = `
-        <div class="match-title">${getImageByTeamName(team1)} vs ${getImageByTeamName(team2)} ${scoreText}</div>
-        <p class="date">${dateText}</p>
-    `;
-    return matchElement;
-}
-
-
 // Créer une liste avec les liens d'image associés
 const teamsWithImages = [...teams];
 
