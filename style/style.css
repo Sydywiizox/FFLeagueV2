@@ -130,6 +130,10 @@ body::after {
     gap: min(15px,calc(15/1152*100*1vw));
 }
 
+.footer-nav-item a:hover {
+    color: #fff;
+}
+
 /* BANDEAU */
 
 .bandeau {
