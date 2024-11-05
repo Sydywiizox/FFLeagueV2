@@ -442,6 +442,10 @@ main {
     cursor: pointer;
 }
 
+.content button:hover {
+    color: #fff;
+}
+
 .content ul {
     margin-block: min(16px,calc(16/1920*100*1vw)) min(20px,calc(20/1920*100*1vw));
 }
