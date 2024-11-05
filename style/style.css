@@ -23,10 +23,10 @@ body {
 body::before {
     content: "";
     position: fixed; /* Fixe l’élément pour qu’il couvre toujours la fenêtre */
-    top: -5vh;
-    left: -5vw;
-    width: 110vw; /* Largeur du viewport */
-    height: 110vh; /* Hauteur du viewport */
+    top: 0;
+    left: 0;
+    width: 100vw; /* Largeur du viewport */
+    height: 100vh; /* Hauteur du viewport */
     background: inherit; /* Reprend l’arrière-plan */
     filter: blur(3px); /* Applique le flou */
     z-index: -1; /* Derrière le contenu */
