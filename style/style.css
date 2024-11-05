@@ -8,11 +8,11 @@
 }
 
 body {
-    height: 100%; /* Assure que le body couvre toute la hauteur de la page */
+    height: 100%;
     margin: 0;
     font-family: "Unbounded", sans-serif;
     font-weight: 400;
-    font-size: min(15px,calc(15/1920*100*1vw));
+    font-size: min(16px,calc(16/1920*100*1vw));
     color: #fff;
     background: linear-gradient(rgba(28, 28, 36, 0.8), rgba(28, 28, 36, 0.8)), url("../image/bg.jpg");
     background-size: cover;
@@ -22,14 +22,14 @@ body {
 
 body::before {
     content: "";
-    position: fixed; /* Fixe l’élément pour qu’il couvre toujours la fenêtre */
+    position: fixed;
     top: 0;
     left: 0;
-    width: 100vw; /* Largeur du viewport */
-    height: 100vh; /* Hauteur du viewport */
-    background: inherit; /* Reprend l’arrière-plan */
-    filter: blur(3px); /* Applique le flou */
-    z-index: -1; /* Derrière le contenu */
+    width: 100vw;
+    height: 100vh;
+    background: inherit;
+    filter: blur(3px); 
+    z-index: -1; 
 }
 
 /*
@@ -49,6 +49,9 @@ body::after {
 }
 */
 
+main {
+    min-height: calc(100vh - (min(126px,calc(126/1536*100*1vw)) + min(93px,calc(93/1920*100*1vw)) + min(42px,calc(42/1920*100*1vw)) * 2));
+}
 
 /* HEADER */
 
@@ -149,6 +152,10 @@ body::after {
     text-wrap: nowrap;
 }
 
+.bandeau img {
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
+}
+
 .bandeau .contenu {
     display: flex;
     height: 100%;
@@ -207,7 +214,6 @@ body::after {
 
 .match .match-title img {
     width: min(60px,calc(60/1920*100*1vw));
-    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
 }
 
 /* Classement */
@@ -236,7 +242,6 @@ body::after {
 
 .classement img {
     width: min(90px,calc(90/1920*100*1vw));
-    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
 }
 
 .classement p.place {
@@ -382,4 +387,65 @@ body::after {
 
 .alt-text {
     font-size: min(30px,calc(30/1920*100*1vw));
+}
+
+
+/* RL */
+
+.main.rl > * {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.rl .banner {
+    object-fit: cover;
+}
+
+.rl .banner img  {
+    width: 1440px;
+}
+
+.rl .content {
+    margin: 120px;
+    display: flex;
+    width: 1440px;
+    justify-content: space-between;
+}
+
+.rl .content h2 {
+    font-size: min(40px,calc(40/1920*100*1vw));
+    font-weight: 700;
+    color: var(--pink);
+    margin-block: min(30px,calc(30/1920*100*1vw));
+}
+
+.rl .content .left {
+    display: flex;
+    flex-direction: column;
+    width: 35%;
+}
+
+.rl .content .right {
+    width: 35%;
+    align-content: center
+}
+
+.content button {
+    font-size: min(16px,calc(16/1920*100*1vw));
+    color: var(--blue);
+    background-color: var(--pink);
+    font-family: "Unbounded", sans-serif;
+    font-weight: 700;
+    padding: 13px;
+    cursor: pointer;
+}
+
+.content ul {
+    margin-block: min(16px,calc(16/1920*100*1vw)) min(20px,calc(20/1920*100*1vw));
+}
+
+.content li {
+    margin-left: 20px;
+    list-style-type: disc;
 }
