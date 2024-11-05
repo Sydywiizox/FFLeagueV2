@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="fr">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>FFLeague</title>
+        <link rel="shortcut icon" href="image/FFL.png" type="image/x-icon" />
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <script src="https://code.jquery.com/jquery-3.6.3.min.js" defer></script>
+        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
+        <script src="script/contact.js" defer></script>
+
+
+        <link
+            href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap"
+            rel="stylesheet"
+        />
+        <link
+            rel="preload"
+            href="style/style.css"
+            as="style"
+            onload="this.rel='stylesheet'"
+        />
+        <script
+            src="https://kit.fontawesome.com/3a1761a339.js"
+            crossorigin="anonymous"
+        ></script>
+    </head>
+    <body>
+        <header class="header">
+            <nav class="header-nav">
+                <ul class="header-nav-side">
+                    <a href="index.html"
+                        ><li class="header-nav-item">Accueil</li></a
+                    >
+                    <a href=""
+                        ><li class="header-nav-item">Nos Jeux</li></a
+                    >
+                    <a href=""><li class="header-nav-item">Planning</li></a>
+                </ul>
+                <img
+                    src="image/FFL.svg"
+                    alt="Logo FFleague"
+                    class="header-logo"
+                />
+                <ul class="header-nav-side">
+                    <a href=""><li class="header-nav-item">L'équipe</li></a>
+                    <a href=""><li class="header-nav-item">FAQ</li></a>
+                    <a href="contact.html"><li class="header-nav-item active">Contact</li></a>
+                </ul>
+            </nav>
+        </header>
+        <main class="main contact">
+            <section class="contact-us" id="contact-section">
+                <form id="contactForm" action="">
+                  <div class="section-heading">
+                    <h2>Contactez nous</h2>
+                  </div>
+        
+                  <div class="inputField">
+                    <input
+                      type="text"
+                      name="pseudo"
+                      id="pseudo"
+                      placeholder="Pseudo discord"
+                      required
+                    />
+                    <span class="valid_info_name"></span>
+                  </div>
+        
+                  <div class="inputField">
+                    <input
+                      type="text"
+                      name="structure"
+                      id="structure"
+                      placeholder="Ton équipe / Structure (facultatif)"
+                      required
+                    />
+                    <span class="valid_info_name"></span>
+                  </div>
+        
+                  <div class="inputField">
+                    <input
+                      type="Email"
+                      name="email"
+                      id="email"
+                      placeholder="Ton email"
+                      required=""
+                    />
+                    <span class="valid_info_email"></span>
+                  </div>
+        
+                  <div class="inputField">
+                    <textarea
+                      name="message"
+                      id="message"
+                      placeholder="Ton message"
+                    ></textarea>
+                    <span class="valid_info_message"></span>
+                  </div>
+        
+                  <div class="inputField btn">
+                    <button type="submit" id="form-submit" class="main-gradient-button">
+                      Envoyez un message
+                    </button>
+                  </div>
+                </form>
+              </section>
+            <div class="tooltips"></div>
+        </main>
+        <footer class="footer">
+            <nav class="footer-nav">
+                <ul class="footer-nav-list">
+                    <li class="footer-nav-item">
+                        <a
+                            target="_blank"
+                            href="https://www.instagram.com/ffleaguettv/"
+                            ><i class="fa-brands fa-instagram"></i
+                        ></a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a
+                            target="_blank"
+                            href="https://www.youtube.com/channel/UCFWNJbxg7pC6BGyZCAp9waQ"
+                            ><i class="fa-brands fa-youtube"></i
+                        ></a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a
+                            target="_blank"
+                            href="https://www.tiktok.com/@ffleaguettv"
+                            ><i class="fa-brands fa-tiktok"></i
+                        ></a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a target="_blank" href="https://discord.gg/cJ7BSsT7"
+                            ><i class="fa-brands fa-discord"></i
+                        ></a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a
+                            target="_blank"
+                            href="https://www.twitch.tv/ffleaguettv"
+                            ><i class="fa-brands fa-twitch"></i
+                        ></a>
+                    </li>
+                    <li class="footer-nav-item">
+                        <a target="_blank" href="https://x.com/FFLeagueTTV"
+                            ><i class="fa-brands fa-x-twitter"></i
+                        ></a>
+                    </li>
+                </ul>
+            </nav>
+            <p class="copyright">© 2024 FF LEAGUE. Tous droits réservés.</p>
+        </footer>
+    </body>
+</html>
