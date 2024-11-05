@@ -404,6 +404,7 @@ main {
 
 .rl .banner img  {
     width: 1440px;
+    margin-top: min(80px,calc(40/1920*100*1vw));;
 }
 
 .rl .content {
