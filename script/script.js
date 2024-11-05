@@ -281,7 +281,8 @@ if (document.title == "FFLeague") {
                 // Vérifie si l'événement est à venir
                 const teamItem = document.createElement("div");
                 teamItem.className = "classement";
-                teamItem.innerHTML = `<p class="place">${index + 1}:</p>
+                let nieme = index == 0 ? "er" : "e"
+                teamItem.innerHTML = `<p class="place">${index + 1}<sup>${nieme}</sup>:</p>
                     ${getImageByTeamName(equipe.name)}
                     <p>${equipe.win}W - ${equipe.lose}L</p>
                 `;

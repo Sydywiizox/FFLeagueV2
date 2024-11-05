@@ -8,13 +8,47 @@
 }
 
 body {
+    height: 100%; /* Assure que le body couvre toute la hauteur de la page */
+    margin: 0;
     font-family: "Unbounded", sans-serif;
     font-weight: 400;
     font-size: min(15px,calc(15/1920*100*1vw));
     color: #fff;
-    background-color: var(--blue);
+    background: linear-gradient(rgba(28, 28, 36, 0.8), rgba(28, 28, 36, 0.8)), url("../image/bg.jpg");
+    background-size: cover;
+    background-position: center;
     overflow-x: hidden;
 }
+
+body::before {
+    content: "";
+    position: fixed; /* Fixe l’élément pour qu’il couvre toujours la fenêtre */
+    top: -5vh;
+    left: -5vw;
+    width: 110vw; /* Largeur du viewport */
+    height: 110vh; /* Hauteur du viewport */
+    background: inherit; /* Reprend l’arrière-plan */
+    filter: blur(3px); /* Applique le flou */
+    z-index: -1; /* Derrière le contenu */
+}
+
+/*
+body::after {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    pointer-events: none;
+    background: rgba(255, 255, 255, 0.02);
+    background-image: url("../image/grain.jpg"); 
+    background-size: cover;
+    opacity: 0.1;
+    z-index: -1;
+}
+*/
+
 
 /* HEADER */
 
@@ -27,7 +61,7 @@ body {
     font-weight: var(--menu-font-weight);
     font-size: var(--menu-font-size);
     text-transform: uppercase;
-    filter: drop-shadow(0px 0px 10px black);
+    /* filter: drop-shadow(0px 0px 10px black); */
 }
 
 .header-nav-side {
@@ -72,6 +106,31 @@ body {
     width: min(152px,calc(152/1152*100*1vw));
 }
 
+/* FOOTER */
+
+.footer {
+    height: min(93px,calc(93/1152*100*1vw));
+    background-color: var(--pink);
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+}
+
+.footer {
+    color: var(--blue);
+    font-weight: 700;
+}
+
+.footer-nav {
+    font-size: 30px;
+}
+
+.footer-nav-list {
+    display: flex;
+    height: 100%;
+    gap: 15px;
+}
+
 /* BANDEAU */
 
 .bandeau {
@@ -90,7 +149,6 @@ body {
 .bandeau .contenu {
     display: flex;
     height: 100%;
-    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
 }
 
 .bandeau:hover .contenu {
@@ -145,7 +203,8 @@ body {
 }
 
 .match .match-title img {
-    width: min(70px,calc(70/1920*100*1vw));
+    width: min(60px,calc(60/1920*100*1vw));
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
 }
 
 /* Classement */
@@ -174,11 +233,16 @@ body {
 
 .classement img {
     width: min(90px,calc(90/1920*100*1vw));
+    filter: drop-shadow(1px 1px 1px rgba(0,0,0,0.5));
 }
 
 .classement p.place {
     font-size: min(40px,calc(40/1920*100*1vw));
     padding-bottom: min(5px,calc(5/1920*100*1vw));
+}
+
+.classement p.place sup {
+    font-size: min(20px,calc(20/1920*100*1vw));
 }
 
 .classement p {
@@ -188,7 +252,35 @@ body {
 /* Projet */
 
 .projet {
-    height: min(600px,calc(600/1920*100*1vw));
+    margin: min(120px,calc(120/1920*100*1vw));
+    display: flex;
+    gap: 50px;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.projet-text {
+    width: min(453.6px,calc(453.6/1920*100*1vw));
+    /* text-align: justify; */
+}
+
+.projet-text br.marge {
+    margin-bottom: min(15px,calc(15/1920*100*1vw));
+}
+
+.projet-text h2 {
+    font-size: min(40px,calc(40/1920*100*1vw));
+    font-weight: 700;
+    color: var(--pink);
+    margin-bottom: min(30px,calc(30/1920*100*1vw));
+}
+
+.projet-video {
+    aspect-ratio: 16/9;
+    height: min(500px,calc(500/1920*100*1vw));
+    display: flex;
+    justify-content: center;
+    border: 2px solid var(--pink);
 }
 
 /* Twitch */
