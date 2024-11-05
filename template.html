@@ -26,19 +26,19 @@
         <header class="header">
             <nav class="header-nav">
                 <ul class="header-nav-side">
-                    <a href="index.html"
-                        ><li class="header-nav-item">Accueil</li></a
-                    >
-                    <a href="games.html"
-                        ><li class="header-nav-item active">Nos Jeux</li></a
-                    >
-                    <a href="planning.html"><li class="header-nav-item">Planning</li></a>
+                    <a href="index.html"><li class="header-nav-item">Accueil</li></a>
+                    <li class="header-nav-item">
+                        <a href="games.html">Nos Jeux</a>
+                        <ul class="dropdown">
+                            <ul class="dropdown">
+                                <li class="dropdown-item"><a href="lol.html">League of Legends</a></li>
+                                <li class="dropdown-item"><a href="rl.html">Rocket League</a></li>
+                            </ul>
+                        </ul>
+                    </li>
+                    <a href="planning.html"><li class="header-nav-item active">Planning</li></a>
                 </ul>
-                <img
-                    src="image/FFL.svg"
-                    alt="Logo FFleague"
-                    class="header-logo"
-                />
+                <img src="image/FFL.svg" alt="Logo FFleague" class="header-logo" />
                 <ul class="header-nav-side">
                     <a href="team.html"><li class="header-nav-item">L'équipe</li></a>
                     <a href="FAQ.html"><li class="header-nav-item">FAQ</li></a>
@@ -46,7 +46,7 @@
                 </ul>
             </nav>
         </header>
-        <main class="main"> 
+        <main class="main">
             <div class="tooltips"></div>
         </main>
         <footer class="footer">

@@ -109,6 +109,50 @@ main {
     width: min(152px,calc(152/1152*100*1vw));
 }
 
+
+/* Styles pour le sous-menu */
+.dropdown {
+    display: none; /* Masqué par défaut */
+    position: absolute;
+    top: 100%; /* En dessous de l'élément parent */
+    left: 0;
+    background-color: #fff;
+    padding: 0;
+    margin: 0;
+    width: max-content;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.15);
+    border-radius: 4px;
+    z-index: 3;
+}
+
+.header-nav-item:hover .dropdown {
+    display: block; /* Affiché au survol */
+}
+
+.dropdown-item {
+    padding: 10px 20px;
+    color: var(--pink);
+    font-weight: var(--menu-font-weight);
+    font-size: var(--menu-font-size);
+    text-transform: uppercase;
+}
+
+/* Arrondir les coins du premier et dernier élément */
+.dropdown-item:first-child {
+    border-top-left-radius: 4px;
+    border-top-right-radius: 4px;
+}
+
+.dropdown-item:last-child {
+    border-bottom-left-radius: 4px;
+    border-bottom-right-radius: 4px;
+}
+
+.dropdown-item:hover {
+    background-color: var(--pink);
+    color: #fff;
+}
+
 /* FOOTER */
 
 .footer {
