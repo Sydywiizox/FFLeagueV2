@@ -7,11 +7,6 @@
         <link rel="shortcut icon" href="image/FFL.png" type="image/x-icon" />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-        <script src="https://code.jquery.com/jquery-3.6.3.min.js" defer></script>
-        <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js" defer></script>
-        <script src="script/contact.js" defer></script>
-
-
         <link
             href="https://fonts.googleapis.com/css2?family=Unbounded:wght@200..900&display=swap"
             rel="stylesheet"
@@ -26,6 +21,8 @@
             src="https://kit.fontawesome.com/3a1761a339.js"
             crossorigin="anonymous"
         ></script>
+        <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.15/index.global.min.js" defer></script>
+        <script src="script/planning.js" defer></script>
     </head>
     <body>
         <header class="header">
@@ -34,10 +31,10 @@
                     <a href="index.html"
                         ><li class="header-nav-item">Accueil</li></a
                     >
-                    <a href=""
+                    <a href="games.html"
                         ><li class="header-nav-item">Nos Jeux</li></a
                     >
-                    <a href="planning.html"><li class="header-nav-item">Planning</li></a>
+                    <a href="planning.html"><li class="header-nav-item active">Planning</li></a>
                 </ul>
                 <img
                     src="image/FFL.svg"
@@ -45,68 +42,14 @@
                     class="header-logo"
                 />
                 <ul class="header-nav-side">
-                    <a href=""><li class="header-nav-item">L'équipe</li></a>
-                    <a href=""><li class="header-nav-item">FAQ</li></a>
-                    <a href="contact.html"><li class="header-nav-item active">Contact</li></a>
+                    <a href="team.html"><li class="header-nav-item">L'équipe</li></a>
+                    <a href="FAQ.html"><li class="header-nav-item">FAQ</li></a>
+                    <a href="contact.html"><li class="header-nav-item">Contact</li></a>
                 </ul>
             </nav>
         </header>
-        <main class="main contact">
-            <section class="contact-us" id="contact-section">
-                <form id="contactForm" action="">
-                  <div class="section-heading">
-                    <h2>Contactez nous</h2>
-                  </div>
-        
-                  <div class="inputField">
-                    <input
-                      type="text"
-                      name="pseudo"
-                      id="pseudo"
-                      placeholder="Pseudo discord"
-                      required
-                    />
-                    <span class="valid_info_name"></span>
-                  </div>
-        
-                  <div class="inputField">
-                    <input
-                      type="text"
-                      name="structure"
-                      id="structure"
-                      placeholder="Ton équipe / Structure (facultatif)"
-                      required
-                    />
-                    <span class="valid_info_name"></span>
-                  </div>
-        
-                  <div class="inputField">
-                    <input
-                      type="Email"
-                      name="email"
-                      id="email"
-                      placeholder="Ton email"
-                      required=""
-                    />
-                    <span class="valid_info_email"></span>
-                  </div>
-        
-                  <div class="inputField">
-                    <textarea
-                      name="message"
-                      id="message"
-                      placeholder="Ton message"
-                    ></textarea>
-                    <span class="valid_info_message"></span>
-                  </div>
-        
-                  <div class="inputField btn">
-                    <button type="submit" id="form-submit" class="main-gradient-button">
-                      Envoyez un message
-                    </button>
-                  </div>
-                </form>
-              </section>
+        <main class="main"> 
+            <div id="calendar"></div>
             <div class="tooltips"></div>
         </main>
         <footer class="footer">

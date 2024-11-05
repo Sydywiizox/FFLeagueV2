@@ -50,7 +50,7 @@ body::after {
 */
 
 main {
-    min-height: calc(100vh - (min(126px,calc(126/1536*100*1vw)) + min(93px,calc(93/1920*100*1vw)) + min(42px,calc(42/1920*100*1vw))));
+    /* min-height: calc(100vh - (min(126px,calc(126/1536*100*1vw)) + min(93px,calc(93/1920*100*1vw)) + min(42px,calc(42/1920*100*1vw)))); */
 }
 
 /* HEADER */
@@ -593,4 +593,49 @@ section {
   button.ghost {
     background-color: transparent;
     border-color: #fff;
+  }
+
+  /* Calendar */
+
+#calendar {
+    width: 60vw;
+    height: 40vw;
+    margin: 60px auto;
+  }
+
+  #calendar .fc-col-header-cell {
+    height: min(20px,calc(20/1920*100*1vw));
+    font-size: min(20px,calc(20/1920*100*1vw));
+  }
+
+  #calendar .fc-toolbar-title {
+    font-size: min(35px,calc(35/1920*100*1vw));
+    color: var(--pink);
+    text-align: center;
+  }
+
+  #calendar .fc-button {
+    background-color: var(--pink);
+    border-radius: 0px;
+  }
+  
+  #calendar .fc-day-today {
+    background-color: #fba0896f;
+  }
+
+  #calendar .fc-event * {
+    font-size: min(15px,calc(15/1920*100*1vw));
+  }
+  
+  #calendar .fc-event-title {
+    font-size: min(12px,calc(12/1920*100*1vw));
+    white-space: wrap;
+  }
+  
+  #calendar .fc-timegrid-axis {
+    background-color: var(--pink);
+  }
+  
+  #calendar .fc-view-harness-active {
+    overflow: hidden;
   }
